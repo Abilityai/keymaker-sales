@@ -1,0 +1,32 @@
+# File-backed pipeline (the default backend of scripts/crm.py).
+# Sample deals for a fictional agency - edit freely. Stage names must match CLAUDE.md.
+deals:
+  - slug: harbor-vale-logistics
+    company: Harbor & Vale Logistics
+    owner: "Your name"
+    stage: "2. Qualified"
+    value_usd: 12000
+    champion: "Dana Okafor, Head of Operations"
+    updated: "2026-09-26"
+    notes:
+      - "2026-09-22 Discovery call: 40 drivers, dispatch runs on spreadsheets + a Zapier flow nobody owns."
+      - "2026-09-26 Budget path confirmed: COO signs under $15K."
+  - slug: bluefin-dental
+    company: Bluefin Dental Group
+    owner: "Sam Reyes"
+    stage: "0. Discovery Call Booked"
+    value_usd: 2500
+    champion: "Priya Nair, Practice Manager"
+    updated: "2026-09-29"
+    notes:
+      - "2026-09-29 Inbound from the website. Call booked for 2026-10-03."
+  - slug: northwind-legal
+    company: Northwind Legal
+    owner: "Your name"
+    stage: "4. Proposal Sent"
+    value_usd: 40000
+    champion: "Tom Alder, Managing Partner"
+    updated: "2026-09-10"
+    notes:
+      - "2026-09-01 Workflows reviewed: intake, conflict checks, matter status updates."
+      - "2026-09-10 Proposal handed to owner for sending. No reply since."

@@ -1,0 +1,80 @@
+# Keymaker Sales - a Trinity agent template
+# Part of the Keymaker agency starter set (keymaker.agency), built in public during
+# the Agent-Native Agency workshop series. Public, zero-credential by default.
+name: keymaker-sales
+display_name: "Keymaker Sales"
+description: |
+  The sales desk of Keymaker, an agency that sets up automation on Trinity for other
+  companies. Runs a deal from first call to signature on a real pipeline with real
+  stages. Several people can work it at once, each on the deals they own. It drafts
+  every email and proposal for a human to send, never sends anything itself, and asks
+  the operator before any price moves off the price list.
+
+  Runs out of the box on a file-backed pipeline (pipeline/deals.yaml). Add a Fibery
+  token and the same playbooks read and write your CRM instead.
+tagline: "Deals on a real pipeline. Drafts, never sends."
+version: "0.1.0"
+author: "Keymaker (keymaker.agency)"
+
+resources:
+  cpu: "1"
+  memory: "2g"
+
+avatar_prompt: >
+  A composed sales lead in a dark shirt beside a wall of deal-stage cards, one hand on a
+  closed folder, calm expression. Cool evening light, warm desk lamp. Photographic.
+
+capabilities:
+  - deal-pipeline
+  - crm-integration
+  - outreach-drafting
+  - operator-approval-gates
+
+commands:
+  - name: deal
+    description: Open a deal, review the pipeline, or move a deal to the next stage
+    usage: /deal [<company>] [--review] [--move <stage>]
+  - name: draft-outreach
+    description: Draft an email for a deal as a file the owner sends themselves
+    usage: /draft-outreach <company> [--purpose <follow-up|intro|proposal-cover>]
+
+folders:
+  expose: true     # drafts/ and pipeline summaries are readable by the agency's other agents
+  consume: true    # reads what delivery and marketing expose
+
+# Optional. Without these the agent runs on pipeline/deals.yaml. With them, the same
+# playbooks talk to a Fibery CRM through scripts/crm.py.
+credentials:
+  env_file:
+    - FIBERY_HOST
+    - FIBERY_API_TOKEN
+
+credential_setup:
+  - name: FIBERY_HOST
+    title: Fibery host
+    description: Your Fibery workspace host, e.g. yourcompany.fibery.io. Leave empty to stay on the file-backed pipeline.
+    required: false
+    secret: false
+    format: hostname
+  - name: FIBERY_API_TOKEN
+    title: Fibery API token
+    description: Read and write the pipeline in Fibery. Leave empty to stay on the file-backed pipeline.
+    required: false
+    secret: true
+    format: secret
+
+# The numbers this desk owns. Declared here so every copy of the agency reports the same
+# things; recorded by the agent when it runs a review.
+metrics:
+  - name: open_deals
+    type: gauge
+    description: Deals in stages 0-6
+  - name: deals_won_month
+    type: counter
+    description: Deals moved to Won this month
+  - name: proposals_sent_month
+    type: counter
+    description: Proposals handed to an owner for sending this month
+  - name: stalled_deals
+    type: gauge
+    description: Open deals with no activity for 14+ days

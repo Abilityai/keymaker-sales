@@ -1,0 +1,24 @@
+# Who may operate Keymaker Sales. A human edits this; the agent reads it.
+#
+# principal - sees every deal; approves prices off the list; the only signer
+# rep       - sees and works only the deals they own
+#
+# crm_user is the owner name as it appears in the pipeline (deals.yaml `owner`, or
+# CRM/Owner in Fibery). It must match exactly.
+version: 1
+operators:
+  - id: principal
+    name: "Your name"
+    email: "you@yourcompany.com"
+    crm_user: "Your name"
+    role: principal
+  - id: rep-1
+    name: "Sam Reyes"          # sample rep - replace or remove
+    email: "sam@keymaker.agency"
+    crm_user: "Sam Reyes"
+    role: rep
+rules:
+  unknown_operator: refuse
+  cross_owner_visibility: false
+  signing_role: principal
+  sending: never
