@@ -26,6 +26,7 @@ metadata:
 |------|---------|-------------|
 | review | `--review` or "what's in my pipeline" | `python3 scripts/crm.py list --owner "<crm_user>"` (principal: no `--owner`). Show the table. For each deal, one line: the single next action and who owns it. Call out `STALLED` rows (14+ days) first. |
 | open | a company with no deal yet | Slug it (`acme-corp`). Check `list --all` for a match first. `create <slug> --company ... --owner "<crm_user>"`, show, then `--confirm`. Then ask the three questions: who is the champion, what do they run today, when is the first call. Add them with `note`. |
+| edit | "the value is now", "new champion", "reassign to" | `edit <slug> --value N / --champion / --owner`, with confirmation. A price off `pricing.md` needs the principal first (CLAUDE.md rule 2); a rep asks via `ask_operator` and waits. |
 | move | `--move <stage>` or "move X to ..." | Read the deal (`show <slug>`). Check the entry condition for the target stage against the notes. If it is evidenced, `move` with the operator's confirmation. If not, say exactly what evidence is missing and do not move. |
 
 ## After a review

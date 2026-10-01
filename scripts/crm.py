@@ -12,6 +12,7 @@ Commands (identical on both backends):
   python3 scripts/crm.py create <slug> --company NAME --owner NAME [--value N] [--champion TEXT] [--confirm]
   python3 scripts/crm.py move <slug> --stage "2. Qualified" [--confirm]
   python3 scripts/crm.py note <slug> --text "..." [--confirm]
+  python3 scripts/crm.py edit <slug> [--value N] [--champion TEXT] [--owner NAME] [--confirm]
   python3 scripts/crm.py backend
 
 Every write prints the change it is about to make and refuses without --confirm.
@@ -115,6 +116,19 @@ class FileBackend:
                 return
         sys.exit(f"no deal {slug}")
 
+    def edit(self, slug, **fields):
+        deals = self._read()
+        for d in deals:
+            if d.get("slug") == slug:
+                for k, v in fields.items():
+                    if v is not None:
+                        d[k] = v
+                d["updated"] = _today()
+                d.setdefault("notes", []).append(f"{_today()} Edited: " + ", ".join(f"{k}={v}" for k, v in fields.items() if v is not None))
+                self._write(deals)
+                return
+        sys.exit(f"no deal {slug}")
+
 
 class FiberyBackend:
     """Fibery CRM/Opportunities. Stage names in Fibery must match STAGES."""
@@ -190,6 +204,17 @@ class FiberyBackend:
     def note(self, slug, text):
         sys.exit("notes on the Fibery backend are not implemented in this starter - add a comment in Fibery")
 
+    def edit(self, slug, **fields):
+        d = self.show(slug) or sys.exit(f"no deal {slug}")
+        entity = {"fibery/id": d["_id"]}
+        if fields.get("value_usd") is not None:
+            entity["CRM/TCV"] = fields["value_usd"]
+        if fields.get("company"):
+            entity["CRM/Name"] = fields["company"]
+        if len(entity) == 1:
+            sys.exit("on the Fibery backend only --value and --company can be edited in this starter")
+        self._call([{"command": "fibery.entity/update", "args": {"type": self.TYPE, "entity": entity}}])
+
 
 def backend():
     if os.environ.get("FIBERY_HOST") and os.environ.get("FIBERY_API_TOKEN"):
@@ -229,6 +254,9 @@ def main():
     s.add_argument("--confirm", action="store_true")
     s = sub.add_parser("note"); s.add_argument("slug"); s.add_argument("--text", required=True)
     s.add_argument("--confirm", action="store_true")
+    s = sub.add_parser("edit"); s.add_argument("slug"); s.add_argument("--value", type=int)
+    s.add_argument("--champion"); s.add_argument("--owner"); s.add_argument("--company")
+    s.add_argument("--confirm", action="store_true")
     a = p.parse_args()
     b = backend()
 
@@ -259,6 +287,11 @@ def main():
     elif a.cmd == "note":
         _gate(f"append note to {a.slug} on {b.name}: {a.text}", a.confirm)
         b.note(a.slug, a.text); print("noted")
+    elif a.cmd == "edit":
+        fields = {"value_usd": a.value, "champion": a.champion, "owner": a.owner, "company": a.company}
+        changes = ", ".join(f"{k}={v}" for k, v in fields.items() if v is not None) or sys.exit("nothing to edit")
+        _gate(f"edit {a.slug} on {b.name}: {changes}", a.confirm)
+        b.edit(a.slug, **fields); print("edited")
 
 
 if __name__ == "__main__":
