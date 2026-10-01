@@ -28,7 +28,7 @@ use_cases:
   - "What is in my pipeline and what needs attention today?"
   - "Start a deal with Harbor & Vale and record the discovery call"
   - "Draft the follow-up email to Northwind Legal - I will send it"
-  - "Move Bluefin to Qualified" (it checks the evidence first)
+  - "Move Bluefin to Qualified - and check the evidence first"
 
 capabilities:
   - deal-pipeline
