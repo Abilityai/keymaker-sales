@@ -55,7 +55,6 @@ credential_setup:
     description: Your Fibery workspace host, e.g. yourcompany.fibery.io. Leave empty to stay on the file-backed pipeline.
     required: false
     secret: false
-    format: hostname
   - name: FIBERY_API_TOKEN
     title: Fibery API token
     description: Read and write the pipeline in Fibery. Leave empty to stay on the file-backed pipeline.
