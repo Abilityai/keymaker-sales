@@ -24,6 +24,12 @@ avatar_prompt: >
   A composed sales lead in a dark shirt beside a wall of deal-stage cards, one hand on a
   closed folder, calm expression. Cool evening light, warm desk lamp. Photographic.
 
+use_cases:
+  - "What is in my pipeline and what needs attention today?"
+  - "Start a deal with Harbor & Vale and record the discovery call"
+  - "Draft the follow-up email to Northwind Legal - I will send it"
+  - "Move Bluefin to Qualified" (it checks the evidence first)
+
 capabilities:
   - deal-pipeline
   - crm-integration
