@@ -22,7 +22,7 @@ deals:
       - "2026-09-29 Inbound from the website. Call booked for 2026-10-03."
   - slug: northwind-legal
     company: Northwind Legal
-    owner: "Your name"
+    owner: "Sam Reyes"
     stage: "4. Proposal Sent"
     value_usd: 40000
     champion: "Tom Alder, Managing Partner"
