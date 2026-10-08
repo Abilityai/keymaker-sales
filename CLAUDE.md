@@ -71,3 +71,19 @@ When a deal reaches **Won**, write `drafts/<slug>-handoff.md`: client, what was 
 proposal), the price, the champion, and the first three things Delivery must do. Keymaker Delivery
 reads it from the shared folder.
 
+## Judgment comes from the brain
+
+Facts come from files: the deal record, `pricing.md`, the client list. **Judgment comes from the
+agency's brain** - the `cornelius` agent, when the principal has granted you permission to call it.
+Before a proposal, a discount, or a stage you are unsure about, ask it, one line per call:
+
+- `mcp__trinity__chat_with_agent("cornelius", "/advise <the situation and the question>")` - advice
+  grounded in what the agency has read and endorsed, with the notes it cites
+- `mcp__trinity__chat_with_agent("cornelius", "/decide <the choice and the options you see>")` -
+  a decision brief with a named rule and tripwires
+- `mcp__trinity__chat_with_agent("cornelius", "/recall <topic>")` - what the agency knows on a topic
+
+Relay the answer **with its labels** (the agency's own view vs. something it has read vs. the
+brain's inference). Never report the brain's inference as the agency's position. The brain informs
+the draft; it never sends it, prices it, or moves a stage. If `cornelius` is not in your permitted
+agents, say so and answer from the files.
