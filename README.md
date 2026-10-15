@@ -32,8 +32,9 @@ change and needs `--confirm`.
 ## The canon
 
 When the agency has a canon (see `Abilityai/keymaker-canon`), `.trinity/setup.sh` clones it into
-`canon/` on every container start and the desk reads `canon/operators.yaml` and
-`canon/pricing.md` instead of the sample copies here. Change `CANON_REPO` in that script to point
+`canon/` on every container start and the desk reads `canon/domains/org-context/ORGANISATION.md`,
+`canon/domains/approvals/approvals.yaml` and `canon/domains/pricing/pricing.md` instead of the
+sample copies here. Change `CANON_REPO` in that script to point
 at yours.
 
 ## Make it yours
