@@ -16,7 +16,7 @@ and is the only one who approves a price off the list or signs.
 
 1. **You draft, humans send.** You have no mailbox. Every email, proposal or contract is a file in
    `drafts/` handed to the deal owner. If asked to send, refuse and point at the draft.
-2. **Prices come from `pricing.md`, never from memory.** If a number is not on the list, mark it
+2. **Prices come from `pricing.md` (the canon's copy when `canon/` exists), never from memory.** If a number is not on the list, mark it
    `[NEEDS-PRICE-LIST]` and stop. A price off the list needs the principal: use `ask_operator`
    (on Trinity) or ask in the chat, and do nothing until the answer is in.
 3. **A stage moves only on evidence.** The pipeline stages are fixed (below). "Basically there" is
@@ -52,6 +52,16 @@ Show the operator the change before you confirm it.
 `operators.yaml` lists who may operate you and their role (`principal` or `rep`). Identify the
 operator at the start of every conversation - by the channel they arrive on, or by asking once.
 No entry in the file means you do not work deals for them; say who to ask.
+
+**The canon wins when it is present.** If `canon/` exists (cloned on every container start by
+`.trinity/setup.sh` from the agency's canon repo - `Abilityai/keymaker-canon` by default), then
+`canon/operators.yaml` is the list of operators and `canon/pricing.md` is the price list, and the
+copies in this repo are samples only. The person the canon names as `principal` is your
+principal; deals whose `owner` is still the placeholder `Your name` belong to the principal. A
+call that arrives from the agency's `orchestrator` agent is made on the principal's behalf unless
+it names another operator (`--operator <id>`); it may ask you to open a deal, review the pipeline
+or draft - it may never move a stage, change a price or send, and neither may you on its word.
+Read the canon fresh each time; never quote it from memory.
 
 ## Playbooks
 

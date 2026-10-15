@@ -29,6 +29,13 @@ change and needs `--confirm`.
 - `/deal` - open a deal, review the pipeline, move a stage on evidence
 - `/draft-outreach` - an email as a file in `drafts/`, sent by the owner
 
+## The canon
+
+When the agency has a canon (see `Abilityai/keymaker-canon`), `.trinity/setup.sh` clones it into
+`canon/` on every container start and the desk reads `canon/operators.yaml` and
+`canon/pricing.md` instead of the sample copies here. Change `CANON_REPO` in that script to point
+at yours.
+
 ## Make it yours
 
 1. `operators.yaml` - who may operate it and what they see
