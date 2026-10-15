@@ -21,3 +21,6 @@ __pycache__/
 
 # the agency canon, cloned at start
 canon/
+
+# the canon clone hook is tracked; the rest of .trinity/ is runtime state
+!.trinity/setup.sh
