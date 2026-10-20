@@ -44,6 +44,16 @@ def parse(path):
     return meta, m.group(2).strip()
 
 
+def env_file_value(name):
+    """Credentials injected as ~/.env are not always exported to the shell."""
+    f = Path.home() / ".env"
+    if f.exists():
+        for line in f.read_text().splitlines():
+            if line.startswith(name + "="):
+                return line.split("=", 1)[1].strip().strip('"')
+    return None
+
+
 def find_ask(request_id):
     if not QUEUE.exists():
         return None
@@ -80,7 +90,7 @@ def main():
         sys.exit(f"REFUSED: ask {rid} is not answered '{APPROVE}' (status={ask and ask.get('status')}, response={answer!r}).")
     if "--confirm" not in args:
         sys.exit("approved - re-run with --confirm to send")
-    key = os.environ.get("RESEND_API_KEY")
+    key = os.environ.get("RESEND_API_KEY") or env_file_value("RESEND_API_KEY")
     if not key:
         sys.exit("NOT SENT: no RESEND_API_KEY on this agent. The draft is approved - the deal owner sends it by hand.")
     payload = {
