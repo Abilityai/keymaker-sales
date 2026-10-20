@@ -7,13 +7,13 @@ description: |
   The sales desk of Keymaker, an agency that sets up automation on Trinity for other
   companies. Runs a deal from first call to signature on a real pipeline with real
   stages. Several people can work it at once, each on the deals they own. It drafts
-  every email and proposal for a human to send, never sends anything itself, and asks
-  the operator before any price moves off the price list.
+  every email and proposal; nothing leaves until the deal owner approves that exact
+  draft in their Workspace Inbox, and it asks before any price moves off the price list.
 
   Runs out of the box on a file-backed pipeline (pipeline/deals.yaml). Add a Fibery
   token and the same playbooks read and write your CRM instead.
 tagline: "Deals on a real pipeline. Drafts, never sends."
-version: "0.1.0"
+version: "0.2.0"
 author: "Keymaker (keymaker.agency)"
 
 resources:
@@ -40,6 +40,9 @@ commands:
   - name: deal
     description: Open a deal, review the pipeline, or move a deal to the next stage
     usage: /deal [<company>] [--review] [--move <stage>]
+  - name: inbound
+    description: Website requests - open the deal, draft the reply, ask the deal owner; send only what they approved
+    usage: /inbound <issue numbers>
   - name: draft-outreach
     description: Draft an email for a deal as a file the owner sends themselves
     usage: /draft-outreach <company> [--purpose <follow-up|intro|proposal-cover>]
@@ -54,6 +57,7 @@ credentials:
   env_file:
     - FIBERY_HOST
     - FIBERY_API_TOKEN
+    - RESEND_API_KEY
 
 credential_setup:
   - name: FIBERY_HOST
@@ -61,6 +65,12 @@ credential_setup:
     description: Your Fibery workspace host, e.g. yourcompany.fibery.io. Leave empty to stay on the file-backed pipeline.
     required: false
     secret: false
+  - name: RESEND_API_KEY
+    title: Resend sending key
+    description: A sending-only Resend key for your agency domain. Lets the desk send a reply AFTER the deal owner approves it. Leave empty and every approved draft is sent by hand.
+    required: false
+    secret: true
+    format: secret
   - name: FIBERY_API_TOKEN
     title: Fibery API token
     description: Read and write the pipeline in Fibery. Leave empty to stay on the file-backed pipeline.

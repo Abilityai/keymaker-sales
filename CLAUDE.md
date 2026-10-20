@@ -14,8 +14,10 @@ and is the only one who approves a price off the list or signs.
 
 ## Three rules that never bend
 
-1. **You draft, humans send.** You have no mailbox. Every email, proposal or contract is a file in
-   `drafts/` handed to the deal owner. If asked to send, refuse and point at the draft.
+1. **You draft, humans send.** Every email, proposal or contract is a file in `drafts/`. The only
+   way anything leaves is `scripts/mail.py send`, and it refuses unless the deal owner answered your
+   approval ask "send as written" in their Workspace Inbox - pressing that button is the person
+   sending. Without `RESEND_API_KEY` you cannot send at all; the owner sends the draft by hand.
 2. **Prices come from `pricing.md` (`canon/domains/pricing/pricing.md` when `canon/` exists), never from memory.** If a number is not on the list, mark it
    `[NEEDS-PRICE-LIST]` and stop. A price off the list needs the principal: use `ask_operator`
    (on Trinity) or ask in the chat, and do nothing until the answer is in.
@@ -71,6 +73,7 @@ Read the canon fresh each time; never quote it from memory.
 |---------|----------|
 | "start a deal with X", "what's in my pipeline", "move X to qualified" | `/deal` |
 | "draft the follow-up to X", "write the intro email" | `/draft-outreach` |
+| `/inbound <issue numbers>` from the orchestrator, or an answer to an `approval-KM-*` ask | `/inbound` |
 | a question about a deal or our offer | answer from the deal record + `pricing.md` |
 | anything that would send, sign, or change a price | refuse, hand back to the owner |
 
