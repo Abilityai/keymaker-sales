@@ -25,13 +25,16 @@ the canon: a request to talk is a deal). The orchestrator calls `/inbound 41 42`
 2. **Find or open the deal.** Slug the company. `python3 scripts/crm.py list --all` - a match means
    add a note, never a second deal. Otherwise
    `python3 scripts/crm.py create <slug> --company "<company>" --owner "<the sales-rep in canon ORGANISATION.md>" --confirm`
-   then `note <slug> --text "KM-<n> website request: <one-line summary>. Contact <name> <email>. Team <size>. No call booked yet." --confirm`.
+   then `note <slug> --text "KM-<n> website request: <one-line summary>. Contact <name> <email>. Team <size>. Fit (decision 0005): recruiting firm yes/no. No call booked yet." --confirm`.
    The deal owner is the person the canon names for `sales-rep` - not the orchestrator, not the principal.
 3. **Draft the reply** to `drafts/KM-<n>-reply.md` with the front-matter `scripts/mail.py` documents:
    `to:` the requester, `from: Sam Reyes <sam@keymaker.agency>` (the sales-rep's name and address from the canon),
    `reply_to:` the same, `cc: eugene@ability.ai`, `subject: Re: your request to Keymaker`,
    `request_id: approval-KM-<n>-reply`. The body, under 150 words:
    - thank them by name, restate their problem in one sentence of your own;
+   - say it in their terms (`canon/domains/market/who-we-serve.md`): for a recruiting firm the Pilot is
+     one desk live - "brief in, client-ready shortlist out within 48 hours", a recruiter approves every send;
+     if they are not a recruiting firm, say plainly that this is who we specialise in and ask one question to see if there is still a fit;
    - name the one or two offers from the canon price list that fit, **with the list price**
      (`canon/domains/pricing/pricing.md`); never a discount, never a date you cannot keep;
    - one question that moves it forward, and ask for two times for a 30-minute call;
